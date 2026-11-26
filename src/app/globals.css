@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #09090b;
+  --bg-surface: #141417;
+  --gold-primary: #d4af37;
+  --gold-light: #f5e6a8;
+  --gold-muted: #8a6d1c;
+  --text-primary: #f8f7f4;
+  --text-secondary: #a1a1aa;
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --color-surface: var(--bg-surface);
+  --color-gold: var(--gold-primary);
+  --color-gold-light: var(--gold-light);
+  --color-gold-muted: var(--gold-muted);
+  --font-sans: var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-loaded), ui-serif, Georgia, serif;
+}
+
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background:
+    radial-gradient(circle at 50% -10%, color-mix(in srgb, var(--gold-primary) 12%, transparent), transparent 48%),
+    var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 52%, #b58921 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gold-button {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 55%, #b88c1e 100%);
+  color: #09090b;
+  box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--gold-primary) 55%, transparent);
+}
+
+.gold-button:active {
+  transform: scale(0.98);
+}
+
+@keyframes goldShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.gold-shimmer-border {
+  position: relative;
+}
+
+.gold-shimmer-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    110deg,
+    color-mix(in srgb, var(--gold-muted) 40%, transparent) 20%,
+    var(--gold-light) 45%,
+    var(--gold-primary) 55%,
+    color-mix(in srgb, var(--gold-muted) 40%, transparent) 80%
+  );
+  background-size: 200% 100%;
+  animation: goldShimmer 6s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
