@@ -89,13 +89,17 @@ export default async function ProductDetailPage({
               className="object-cover"
             />
           ) : (
-            <div className="flex h-full w-full flex-col items-center justify-center bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18),transparent_68%)]">
-              <div className="flex h-24 w-24 items-center justify-center rounded-full border border-[var(--gold-primary)]/40 bg-black/60">
-                <span className="font-editorial text-5xl font-bold gold-gradient-text">
-                  S
-                </span>
+            <div className="flex h-full w-full flex-col items-center justify-center bg-[radial-gradient(circle_at_center,rgba(229,184,59,0.2),transparent_68%)] p-6">
+              <div className="relative h-44 w-52 overflow-hidden rounded-3xl border border-[var(--gold-primary)]/45 bg-black shadow-[0_0_30px_-10px_var(--gold-primary)]">
+                <Image
+                  src="/logo-la-s.jpg"
+                  alt={product.name}
+                  fill
+                  sizes="208px"
+                  className="object-contain p-2"
+                />
               </div>
-              <span className="mt-3 font-mono text-xs tracking-widest text-zinc-500">
+              <span className="mt-3 font-mono text-xs tracking-widest text-[var(--gold-light)]/75">
                 {product.sku}
               </span>
             </div>

@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #09090b;
-  --bg-surface: #141417;
-  --gold-primary: #d4af37;
-  --gold-light: #f5e6a8;
-  --gold-muted: #8a6d1c;
-  --text-primary: #f8f7f4;
-  --text-secondary: #a1a1aa;
+  --bg-primary: #040405;
+  --bg-surface: #0d0c0f;
+  --gold-primary: #e5b83b;
+  --gold-light: #fff0b3;
+  --gold-muted: #8c6214;
+  --text-primary: #faf7f0;
+  --text-secondary: #a8a29e;
 }
 
 @theme inline {
@@ -19,6 +19,7 @@
   --color-gold-muted: var(--gold-muted);
   --font-sans: var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-serif-loaded), ui-serif, Georgia, serif;
+  --font-script: var(--font-script-loaded), cursive;
 }
 
 html {
@@ -29,9 +30,13 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(circle at 50% -10%, color-mix(in srgb, var(--gold-primary) 12%, transparent), transparent 48%),
-    var(--bg-primary);
+  background-color: var(--bg-primary);
+  background-image:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--gold-primary) 16%, transparent), transparent 46%),
+    radial-gradient(circle at 85% 25%, color-mix(in srgb, var(--gold-light) 6%, transparent), transparent 36%),
+    linear-gradient(135deg, rgba(229, 184, 59, 0.03) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(229, 184, 59, 0.03) 25%, transparent 25%);
+  background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
   color: var(--text-primary);
   font-family: var(--font-sans);
   overflow-x: hidden;
@@ -41,21 +46,82 @@ body {
   font-family: var(--font-serif);
 }
 
+.font-script {
+  font-family: var(--font-script);
+}
+
+.royal-gold-text,
 .gold-gradient-text {
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 52%, #b58921 100%);
+  background: linear-gradient(
+    180deg,
+    #fff8d6 0%,
+    var(--gold-light) 26%,
+    var(--gold-primary) 58%,
+    #9b6b14 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .gold-button {
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 55%, #b88c1e 100%);
-  color: #09090b;
-  box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--gold-primary) 55%, transparent);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--gold-light) 0%,
+    var(--gold-primary) 50%,
+    #b58119 100%
+  );
+  color: #090703;
+  box-shadow:
+    0 10px 28px -8px color-mix(in srgb, var(--gold-primary) 65%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.gold-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.48) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: goldSheen 4.5s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .gold-button:active {
   transform: scale(0.98);
+}
+
+.diamond-card {
+  position: relative;
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--bg-surface) 92%, #1d1810) 0%,
+    #070709 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--gold-muted) 45%, transparent);
+  box-shadow:
+    0 14px 34px -18px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 color-mix(in srgb, var(--gold-light) 14%, transparent);
+}
+
+@keyframes goldSheen {
+  0%,
+  55% {
+    left: -120%;
+  }
+  100% {
+    left: 160%;
+  }
 }
 
 @keyframes goldShimmer {
@@ -64,6 +130,18 @@ body {
   }
   100% {
     background-position: 200% 0;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(12deg);
   }
 }
 
@@ -79,19 +157,23 @@ body {
   border-radius: inherit;
   background: linear-gradient(
     110deg,
-    color-mix(in srgb, var(--gold-muted) 40%, transparent) 20%,
+    color-mix(in srgb, var(--gold-muted) 45%, transparent) 18%,
     var(--gold-light) 45%,
     var(--gold-primary) 55%,
-    color-mix(in srgb, var(--gold-muted) 40%, transparent) 80%
+    color-mix(in srgb, var(--gold-muted) 45%, transparent) 82%
   );
   background-size: 200% 100%;
-  animation: goldShimmer 6s linear infinite;
+  animation: goldShimmer 5.5s linear infinite;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+}
+
+.animate-twinkle {
+  animation: twinkle 3.2s ease-in-out infinite;
 }
 
 .no-scrollbar::-webkit-scrollbar {

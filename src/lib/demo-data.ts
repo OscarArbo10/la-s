@@ -14,13 +14,13 @@ export interface ThemePreset {
 export const THEME_PRESETS: Record<ThemePresetId, ThemePreset> = {
   "classic-gold": {
     id: "classic-gold",
-    name: "Negro & Oro Clásico",
-    description: "Negro profundo OLED con dorado real 24k",
-    accentGold: "#D4AF37",
-    accentGoldLight: "#F5E6A8",
-    accentGoldMuted: "#8A6D1C",
-    bgPrimary: "#09090B",
-    bgSurface: "#141417",
+    name: "Negro & Oro Real",
+    description: "Negro puro con oro metálico 3D y diamantes",
+    accentGold: "#E5B83B",
+    accentGoldLight: "#FFF0B3",
+    accentGoldMuted: "#8C6214",
+    bgPrimary: "#040405",
+    bgSurface: "#0D0C0F",
   },
   "rose-gold": {
     id: "rose-gold",
@@ -29,8 +29,8 @@ export const THEME_PRESETS: Record<ThemePresetId, ThemePreset> = {
     accentGold: "#D89A8C",
     accentGoldLight: "#F6D5CD",
     accentGoldMuted: "#8E5A4F",
-    bgPrimary: "#0A090B",
-    bgSurface: "#161316",
+    bgPrimary: "#070507",
+    bgSurface: "#141013",
   },
   "champagne-noir": {
     id: "champagne-noir",
@@ -39,8 +39,8 @@ export const THEME_PRESETS: Record<ThemePresetId, ThemePreset> = {
     accentGold: "#C8B273",
     accentGoldLight: "#EDE2BC",
     accentGoldMuted: "#7E6D3E",
-    bgPrimary: "#0B0B0D",
-    bgSurface: "#151519",
+    bgPrimary: "#08080A",
+    bgSurface: "#121216",
   },
 };
 

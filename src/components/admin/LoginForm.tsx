@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Lock, ArrowLeft, AlertTriangle } from "lucide-react";
 import { signInAdminAction } from "@/app/admin/actions";
@@ -11,14 +12,18 @@ export function LoginForm({ supabaseReady }: { supabaseReady: boolean }) {
   });
 
   return (
-    <div className="w-full max-w-sm rounded-3xl border border-[var(--gold-muted)]/40 bg-[var(--bg-surface)] p-6 shadow-2xl">
+    <div className="diamond-card w-full max-w-sm rounded-3xl p-6 shadow-2xl">
       <div className="text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[var(--gold-primary)]/50 bg-black">
-          <span className="font-editorial text-3xl font-bold gold-gradient-text">
-            S
-          </span>
+        <div className="relative mx-auto h-24 w-28 overflow-hidden rounded-2xl border border-[var(--gold-primary)]/50 bg-black shadow-[0_0_24px_-8px_var(--gold-primary)]">
+          <Image
+            src="/logo-la-s.jpg"
+            alt="Joyería La S"
+            fill
+            sizes="112px"
+            className="object-contain p-1"
+          />
         </div>
-        <h1 className="mt-3 font-editorial text-2xl font-bold text-white">
+        <h1 className="mt-3 font-editorial text-2xl font-bold royal-gold-text">
           Panel Joyería La S
         </h1>
         <p className="mt-1 text-xs text-zinc-400">

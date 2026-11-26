@@ -18,6 +18,7 @@ import {
 import type { Product, SiteSettings } from "@/types/database";
 import { buildProductWhatsAppUrl, formatPrice, formatWeight } from "@/lib/whatsapp";
 import { useInquiryBag } from "./InquiryBagContext";
+import { DiamondFacet, FiligreeDivider } from "./LuxuryOrnaments";
 
 interface JewelryBottomSheetProps {
   product: Product | null;
@@ -51,7 +52,7 @@ export function JewelryBottomSheet({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/85 backdrop-blur-sm"
         />
 
         <motion.div
@@ -59,11 +60,11 @@ export function JewelryBottomSheet({
           animate={{ y: 0 }}
           exit={{ y: "100%" }}
           transition={{ type: "spring", damping: 28, stiffness: 280 }}
-          className="relative z-10 flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl border border-[var(--gold-muted)]/40 bg-[var(--bg-surface)] shadow-2xl"
+          className="diamond-card relative z-10 flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl shadow-2xl"
         >
-          {/* Handle táctil */}
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-[var(--gold-primary)]">
+          <div className="flex items-center justify-between border-b border-[var(--gold-muted)]/30 px-4 py-3">
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-[var(--gold-primary)]">
+              <DiamondFacet className="h-3.5 w-3.5" glow />
               {product.sku}
             </span>
             <button
@@ -77,8 +78,7 @@ export function JewelryBottomSheet({
           </div>
 
           <div className="overflow-y-auto px-4 pb-6 pt-4 space-y-4">
-            {/* Galería */}
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-black">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-[var(--gold-muted)]/40 bg-black">
               {currentUrl ? (
                 <Image
                   src={currentUrl}
@@ -88,10 +88,16 @@ export function JewelryBottomSheet({
                   className="object-cover"
                 />
               ) : (
-                <div className="flex h-full w-full flex-col items-center justify-center bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.18),transparent_70%)]">
-                  <span className="font-editorial text-5xl font-bold gold-gradient-text">
-                    S
-                  </span>
+                <div className="flex h-full w-full flex-col items-center justify-center bg-[radial-gradient(circle_at_center,rgba(229,184,59,0.2),transparent_70%)]">
+                  <div className="relative h-28 w-36 overflow-hidden rounded-2xl border border-[var(--gold-primary)]/40 bg-black">
+                    <Image
+                      src="/logo-la-s.jpg"
+                      alt={product.name}
+                      fill
+                      sizes="144px"
+                      className="object-contain p-1.5"
+                    />
+                  </div>
                   <span className="mt-2 text-xs text-zinc-500">
                     Fotografía próximamente
                   </span>
@@ -124,7 +130,6 @@ export function JewelryBottomSheet({
               </div>
             ) : null}
 
-            {/* Título y precio */}
             <div>
               <p className="text-xs uppercase tracking-widest text-[var(--gold-primary)]">
                 {product.category?.name ?? "Colección Joyería La S"}
@@ -132,10 +137,12 @@ export function JewelryBottomSheet({
               <h2 className="mt-1 font-editorial text-2xl font-bold text-[var(--text-primary)]">
                 {product.name}
               </h2>
-              <p className="mt-1.5 text-xl font-bold text-[var(--gold-light)]">
+              <p className="mt-1.5 text-xl font-bold royal-gold-text">
                 {formatPrice(product.price, product.show_price)}
               </p>
             </div>
+
+            <FiligreeDivider />
 
             {product.description ? (
               <p className="text-sm leading-relaxed text-zinc-300">
@@ -143,8 +150,7 @@ export function JewelryBottomSheet({
               </p>
             ) : null}
 
-            {/* Ficha técnica de la joya */}
-            <div className="grid grid-cols-2 gap-2.5 rounded-2xl border border-white/10 bg-black/40 p-3.5 text-xs">
+            <div className="grid grid-cols-2 gap-2.5 rounded-2xl border border-[var(--gold-muted)]/35 bg-black/50 p-3.5 text-xs">
               <div className="space-y-0.5">
                 <span className="flex items-center gap-1 text-zinc-400">
                   <Gem className="h-3.5 w-3.5 text-[var(--gold-primary)]" />
@@ -187,7 +193,6 @@ export function JewelryBottomSheet({
               </div>
             </div>
 
-            {/* Acciones */}
             <div className="flex flex-col gap-2.5 pt-1">
               <a
                 href={whatsappUrl}

@@ -1,13 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Cinzel, Great_Vibes, Plus_Jakarta_Sans } from "next/font/google";
 import type { CSSProperties } from "react";
 import { getSiteSettings } from "@/lib/data";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
+const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700"],
   variable: "--font-serif-loaded",
+});
+
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-script-loaded",
 });
 
 const jakarta = Plus_Jakarta_Sans({
@@ -17,7 +23,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#09090B",
+  themeColor: "#040405",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -27,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   return {
     title: {
-      default: `${settings.store_name} | Alta Joyería en Negro & Oro`,
+      default: `${settings.store_name} | Alta Joyería, Oro y Diamantes`,
       template: `%s | ${settings.store_name}`,
     },
     description: settings.theme_config.heroSubtitle,
@@ -54,7 +60,7 @@ export default async function RootLayout({
     <html
       lang="es"
       style={themeVars}
-      className={`${cormorant.variable} ${jakarta.variable} h-full antialiased`}
+      className={`${cinzel.variable} ${greatVibes.variable} ${jakarta.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col selection:bg-[var(--gold-primary)] selection:text-black">
         {children}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -28,10 +29,14 @@ export function AdminNav({ storeName }: { storeName: string }) {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[var(--bg-primary)]/95 backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--gold-primary)]/50 bg-[var(--bg-surface)]">
-              <span className="font-editorial text-lg font-bold gold-gradient-text">
-                S
-              </span>
+            <div className="relative h-9 w-9 overflow-hidden rounded-full border border-[var(--gold-primary)]/55 bg-black">
+              <Image
+                src="/logo-la-s.jpg"
+                alt={storeName}
+                fill
+                sizes="36px"
+                className="object-contain p-0.5"
+              />
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-[var(--gold-light)]">

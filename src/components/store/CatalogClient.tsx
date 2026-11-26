@@ -1,10 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search, SlidersHorizontal, Sparkles, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { Search, SlidersHorizontal, X } from "lucide-react";
 import type { Category, Product, SiteSettings } from "@/types/database";
 import { JewelryCard } from "./JewelryCard";
 import { JewelryBottomSheet } from "./JewelryBottomSheet";
+import { DiamondFacet } from "./LuxuryOrnaments";
 
 interface CatalogClientProps {
   products: Product[];
@@ -80,19 +82,24 @@ export function CatalogClient({
 
   const isTwoCol = settings.theme_config.cardLayout !== "grid-1";
 
+  const categoryTabs = useMemo(
+    () => [{ id: 0, name: "Todas", slug: "all" }, ...categories],
+    [categories]
+  );
+
   return (
     <section className="mx-auto w-full max-w-3xl px-3.5 pb-28 sm:px-4">
-      {/* Buscador y orden */}
-      <div className="sticky top-[57px] z-30 -mx-3.5 bg-[var(--bg-primary)]/95 px-3.5 pb-3 pt-2 backdrop-blur-md border-b border-white/5 sm:-mx-4 sm:px-4">
+      {/* Barra de filtros adhesiva */}
+      <div className="sticky top-[64px] z-30 -mx-3.5 border-b border-[var(--gold-muted)]/25 bg-[#040405]/95 px-3.5 pb-3 pt-3 backdrop-blur-md sm:-mx-4 sm:px-4">
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--gold-primary)]" />
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Buscar anillo, oro 18k, código..."
-              className="h-10 w-full rounded-xl border border-white/10 bg-[var(--bg-surface)] pl-9 pr-8 text-sm text-white placeholder:text-zinc-500 focus:border-[var(--gold-primary)] focus:outline-none"
+              placeholder="Buscar anillo, oro 18k, diamante..."
+              className="h-10 w-full rounded-xl border border-[var(--gold-muted)]/35 bg-[var(--bg-surface)] pl-9 pr-8 text-sm text-white placeholder:text-zinc-500 focus:border-[var(--gold-primary)] focus:outline-none"
             />
             {search ? (
               <button
@@ -116,7 +123,7 @@ export function CatalogClient({
                   e.target.value as "featured" | "weight-desc" | "price-asc" | "price-desc"
                 )
               }
-              className="h-10 appearance-none rounded-xl border border-white/10 bg-[var(--bg-surface)] pl-8 pr-3 text-xs font-medium text-zinc-200 focus:border-[var(--gold-primary)] focus:outline-none"
+              className="h-10 appearance-none rounded-xl border border-[var(--gold-muted)]/35 bg-[var(--bg-surface)] pl-8 pr-3 text-xs font-medium text-zinc-200 focus:border-[var(--gold-primary)] focus:outline-none"
             >
               <option value="featured">Destacados</option>
               <option value="weight-desc">Mayor peso (g)</option>
@@ -126,40 +133,40 @@ export function CatalogClient({
           </div>
         </div>
 
-        {/* Píldoras deslizables de categorías */}
+        {/* Píldoras dinámicas con indicador layoutId */}
         <div className="mt-2.5 flex gap-2 overflow-x-auto no-scrollbar pb-0.5">
-          <button
-            type="button"
-            onClick={() => setSelectedCategory("all")}
-            className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ${
-              selectedCategory === "all"
-                ? "border-[var(--gold-primary)] bg-[var(--gold-primary)] text-black"
-                : "border-white/10 bg-[var(--bg-surface)] text-zinc-300"
-            }`}
-          >
-            Todas
-          </button>
-
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              type="button"
-              onClick={() => setSelectedCategory(cat.slug)}
-              className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ${
-                selectedCategory === cat.slug
-                  ? "border-[var(--gold-primary)] bg-[var(--gold-primary)] text-black"
-                  : "border-white/10 bg-[var(--bg-surface)] text-zinc-300"
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
+          {categoryTabs.map((cat) => {
+            const active = selectedCategory === cat.slug;
+            return (
+              <button
+                key={cat.slug}
+                type="button"
+                onClick={() => setSelectedCategory(cat.slug)}
+                className={`relative shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${
+                  active
+                    ? "text-black"
+                    : "border border-[var(--gold-muted)]/30 bg-black/60 text-zinc-300 hover:border-[var(--gold-primary)]/50"
+                }`}
+              >
+                {active ? (
+                  <motion.span
+                    layoutId="activeCategoryPill"
+                    transition={{ type: "spring", stiffness: 360, damping: 28 }}
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[var(--gold-light)] via-[var(--gold-primary)] to-[#b58119]"
+                  />
+                ) : null}
+                <span className="relative z-10 flex items-center gap-1.5">
+                  {active ? <DiamondFacet className="h-3 w-3" /> : null}
+                  {cat.name}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Filtro rápido por material */}
         {materials.length > 1 ? (
           <div className="mt-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-            <span className="shrink-0 text-[10px] uppercase tracking-wider text-zinc-500">
+            <span className="shrink-0 text-[10px] uppercase tracking-wider text-[var(--gold-primary)]">
               Material:
             </span>
             <button
@@ -167,7 +174,7 @@ export function CatalogClient({
               onClick={() => setSelectedMaterial("all")}
               className={`shrink-0 rounded-md px-2 py-0.5 text-[11px] transition ${
                 selectedMaterial === "all"
-                  ? "bg-[var(--gold-primary)]/20 text-[var(--gold-light)] border border-[var(--gold-primary)]/40"
+                  ? "border border-[var(--gold-primary)]/50 bg-[var(--gold-primary)]/20 text-[var(--gold-light)]"
                   : "text-zinc-400 hover:text-zinc-200"
               }`}
             >
@@ -180,7 +187,7 @@ export function CatalogClient({
                 onClick={() => setSelectedMaterial(mat)}
                 className={`shrink-0 rounded-md px-2 py-0.5 text-[11px] transition ${
                   selectedMaterial === mat
-                    ? "bg-[var(--gold-primary)]/20 text-[var(--gold-light)] border border-[var(--gold-primary)]/40"
+                    ? "border border-[var(--gold-primary)]/50 bg-[var(--gold-primary)]/20 text-[var(--gold-light)]"
                     : "text-zinc-400 hover:text-zinc-200"
                 }`}
               >
@@ -191,11 +198,14 @@ export function CatalogClient({
         ) : null}
       </div>
 
-      {/* Contador de resultados */}
+      {/* Encabezado de sección */}
       <div className="mt-4 mb-3 flex items-center justify-between text-xs text-zinc-400">
-        <span>
-          {filteredProducts.length}{" "}
-          {filteredProducts.length === 1 ? "pieza disponible" : "piezas en catálogo"}
+        <span className="inline-flex items-center gap-1.5">
+          <DiamondFacet className="h-3.5 w-3.5" glow />
+          <span>
+            {filteredProducts.length}{" "}
+            {filteredProducts.length === 1 ? "pieza exclusiva" : "piezas en colección"}
+          </span>
         </span>
         {(selectedCategory !== "all" || selectedMaterial !== "all" || search) ? (
           <button
@@ -212,7 +222,6 @@ export function CatalogClient({
         ) : null}
       </div>
 
-      {/* Cuadrícula de Joyas */}
       {filteredProducts.length > 0 ? (
         <div
           className={
@@ -233,9 +242,9 @@ export function CatalogClient({
           ))}
         </div>
       ) : (
-        <div className="mt-8 rounded-2xl border border-white/10 bg-[var(--bg-surface)] p-8 text-center">
-          <Sparkles className="mx-auto h-8 w-8 text-[var(--gold-primary)]" />
-          <h3 className="mt-3 font-editorial text-xl font-semibold text-white">
+        <div className="diamond-card mt-8 rounded-2xl p-8 text-center">
+          <DiamondFacet className="mx-auto h-9 w-9" glow />
+          <h3 className="mt-3 font-editorial text-xl font-semibold royal-gold-text">
             No encontramos esa joya
           </h3>
           <p className="mt-1 text-xs text-zinc-400">
